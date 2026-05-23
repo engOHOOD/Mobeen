@@ -53,7 +53,7 @@ import 'package:mobeen/features/auth/loading/presentation/cubit/loading_cubit.da
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: Routes.logIn,
+    initialLocation: Routes.loading,
 
     routes: [
       GoRoute(

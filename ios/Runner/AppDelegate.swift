@@ -17,4 +17,3 @@ import GoogleMaps
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
   }
 }
-  

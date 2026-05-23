@@ -75,16 +75,16 @@ class CreateOrganizationFeatureScreen extends HookWidget {
                                         color: AppColors.disabled,
                                       ),
                                     ),
-          
+
                                     child: InkWell(
                                       onTap: () async {
                                         final picker = ImagePicker();
-          
+
                                         final image = await picker.pickImage(
                                           source: ImageSource.gallery,
                                           imageQuality: 70,
                                         );
-          
+
                                         if (image != null) {
                                           final bytes = await image
                                               .readAsBytes();
@@ -165,7 +165,7 @@ class CreateOrganizationFeatureScreen extends HookWidget {
                             ),
                           ),
                           const SliverToBoxAdapter(child: Gap(20)),
-          
+
                           /// BUTTON
                           SliverToBoxAdapter(
                             child: CustomSubmitButton(
@@ -183,12 +183,12 @@ class CreateOrganizationFeatureScreen extends HookWidget {
                                             nationalAddressController.text,
                                         organizationLogoBytes:
                                             pickedImageBytes.value,
-          
+
                                         name: nameController.text,
                                         adminemail: adminEmailController.text,
                                         phone: phoneController.text,
                                       );
-          
+
                                       context.showSnackBar(
                                         'تم إضافة المستخدم بنجاح',
                                       );
@@ -201,7 +201,7 @@ class CreateOrganizationFeatureScreen extends HookWidget {
                   ],
                 );
               }
-          
+
               return const SizedBox();
             },
           ),

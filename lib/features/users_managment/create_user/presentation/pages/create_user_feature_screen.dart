@@ -23,6 +23,7 @@ class CreateUserFeatureScreen extends HookWidget {
     final nameController = useTextEditingController();
     final emailController = useTextEditingController();
     final phoneController = useTextEditingController();
+
     final selectedRole = useValueNotifier<String?>(null);
 
     return Scaffold(
@@ -34,12 +35,12 @@ class CreateUserFeatureScreen extends HookWidget {
             }
 
             if (state is CreateUserSuccessState) {
-              context.hideLoading();
+              context.pop();
               context.showSnackBar("تم إنشاء المستخدم بنجاح");
             }
 
             if (state is CreateUserErrorState) {
-              context.hideLoading();
+              context.pop();
               context.showSnackBar(state.message);
             }
           },

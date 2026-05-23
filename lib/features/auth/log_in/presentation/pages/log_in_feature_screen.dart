@@ -20,8 +20,8 @@ class LogInFeatureScreen extends HookWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<LogInCubit>();
 
-    final emailController = useTextEditingController(text:"");
-    final passwordController = useTextEditingController(text:"");
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
 
     final formKey = GlobalKey<FormState>();
     final isobsecure = useState(true);

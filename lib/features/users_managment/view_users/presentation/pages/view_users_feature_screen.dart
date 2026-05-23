@@ -21,70 +21,68 @@ class ViewUsersFeatureScreen extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(100),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              WebHeader(
-                title: "المستخدمين",
-                buttonTitle: "إضافة مستخدم",
-                onPressed: () {
-                  context.push("${Routes.viewUsers}${Routes.createUser}");
-                },
-              ),
-              Gap(10.sh),
-              BlocBuilder<ViewUsersCubit, ViewUsersState>(
-                builder: (context, state) {
-                  if (state is ViewUsersInitialState) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (state is ViewUsersSuccessState) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.shadow.withAlpha(40),
-                            blurRadius: 10,
-                            offset: const Offset(0, 2),
+        child: Column(
+          children: [
+            WebHeader(
+              title: "المستخدمين",
+              buttonTitle: "إضافة مستخدم",
+              onPressed: () {
+                context.push("${Routes.viewUsers}${Routes.createUser}");
+              },
+            ),
+            Gap(10.sh),
+            BlocBuilder<ViewUsersCubit, ViewUsersState>(
+              builder: (context, state) {
+                if (state is ViewUsersInitialState) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state is ViewUsersSuccessState) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.shadow.withAlpha(40),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: SingleChildScrollView(
+                      child: DataTable(
+                        columnSpacing: 150,
+                        horizontalMargin: 30,
+                        dividerThickness: 0,
+                        dataRowColor: WidgetStatePropertyAll(
+                          Colors.transparent,
+                        ),
+                        headingRowColor: .all(AppColors.textTertiary),
+                        columns: [
+                          DataColumn(label: TableHeader(text: 'الاسم الثلاثي')),
+                          DataColumn(
+                            label: TableHeader(text: 'البريد الإلكتروني'),
                           ),
+                          DataColumn(label: TableHeader(text: 'الدور')),
+                          DataColumn(label: TableHeader(text: 'مفعل')),
                         ],
-                      ),
-                      child: SingleChildScrollView(
-                        child: DataTable(
-                          columnSpacing: 150,
-                          horizontalMargin: 30,
-                          dividerThickness: 0,
-                          dataRowColor: WidgetStatePropertyAll(
-                            Colors.transparent,
-                          ),
-                          headingRowColor: .all(AppColors.textTertiary),
-                          columns: [
-                            DataColumn(label: TableHeader(text: 'الاسم الثلاثي')),
-                            DataColumn(
-                              label: TableHeader(text: 'البريد الإلكتروني'),
-                            ),
-                            DataColumn(label: TableHeader(text: 'الدور')),
-                            DataColumn(label: TableHeader(text: 'مفعل')),
-                          ],
-                          rows: List.generate(
-                            state.users.length,
-                            (index) => buildDataRow(index, state.users),
-                          ),
+                        rows: List.generate(
+                          state.users.length,
+                          (index) => buildDataRow(index, state.users),
                         ),
                       ),
-                    );
-                  } else if (state is ViewUsersErrorState) {
-                    return Center(
-                      child: Text("نعتذر، حدث خطأ بالنظام، حاول مرة أخرى"),
-                    );
-                  }
+                    ),
+                  );
+                } else if (state is ViewUsersErrorState) {
                   return Center(
                     child: Text("نعتذر، حدث خطأ بالنظام، حاول مرة أخرى"),
                   );
-                },
-              ),
-            ],
-          ),
+                }
+                return Center(
+                  child: Text("نعتذر، حدث خطأ بالنظام، حاول مرة أخرى"),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

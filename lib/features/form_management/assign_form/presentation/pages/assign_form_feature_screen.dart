@@ -18,7 +18,7 @@ class AssignFormFeatureScreen extends HookWidget {
     final cubit = context.read<AssignFormCubit>();
     final selectedUserIds = useState<List<String>>([]);
     final userTargets = useState<Map<String, int>>({});
-    cubit.getAssignFormMethod(formId:form.id);
+    cubit.getAssignFormMethod(formId: form.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -70,7 +70,7 @@ class AssignFormFeatureScreen extends HookWidget {
                     if (state.team.isEmpty) {
                       return const Center(
                         child: Text(
-                          'لا يوجد أعضاء في الفريق حالياً',
+                          "لا يوجد باحثون متاحون لإسنادهم لهذا النموذج حالياً",
                           style: TextStyle(color: Colors.grey),
                         ),
                       );
