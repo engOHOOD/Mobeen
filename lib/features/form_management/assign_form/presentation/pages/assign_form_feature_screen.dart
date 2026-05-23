@@ -72,7 +72,7 @@ class AssignFormFeatureScreen extends HookWidget {
                         child: Text(
                           "لا يوجد باحثون متاحون لإسنادهم لهذا النموذج حالياً",
                           style: TextStyle(color: Colors.grey),
-                        ),
+                        ), 
                       );
                     }
 
