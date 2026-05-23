@@ -21,7 +21,6 @@ class LocationFeatureScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<LocationCubit>();
     final viewType = useState(LocationViewType.map);
     final user = GetIt.I<UserService>().getUser;
     final userName = user?.name;
@@ -30,17 +29,33 @@ class LocationFeatureScreen extends HookWidget {
       appBar: CustomAppBarHeader(title: "مرحبًا بك في مبين $userName"),
       body: BlocListener<LocationCubit, LocationState>(
         listener: (context, state) {
-          if (state is LocationErrorState) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.message)));
+          if (state is LocationLoadingState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("جاري الحفظ..."),
+                duration: Duration(seconds: 1),
+              ),
+            );
           }
           if (state is AddLocationSuccessState) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(const SnackBar(content: Text("Location added")));
-
-            cubit.getLocations();
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                const SnackBar(
+                  content: Text("تمت الإضافة بنجاح 🎉"),
+                  backgroundColor: Colors.green,
+                ),
+              );
+            context.read<LocationCubit>().getLocations();
+            Navigator.pop(context);
+          }
+          if (state is LocationErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                backgroundColor: Colors.red,
+              ),
+            );
           }
         },
         child: SafeArea(
@@ -79,11 +94,17 @@ class LocationFeatureScreen extends HookWidget {
                       icon: Icons.add_location_alt_rounded,
                       title: "إضافة موقع",
                       onTap: () {
+                        final cubit = context.read<LocationCubit>();
                         showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
-                          builder: (_) => const AddLocationBottomSheet(),
+                          builder: (_) {
+                            return BlocProvider.value(
+                              value: cubit,
+                              child: const AddLocationBottomSheet(),
+                            );
+                          },
                         );
                       },
                     ),

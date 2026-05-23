@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobeen/core/constants/app_colors.dart';
+import 'package:mobeen/core/constants/app_enums.dart';
+import 'package:mobeen/features/location_management/location/domain/entities/location_entity.dart';
+import 'package:mobeen/features/location_management/location/presentation/cubit/location_cubit.dart';
 
 class AddLocationBottomSheet extends HookWidget {
   const AddLocationBottomSheet({super.key});
@@ -251,7 +256,48 @@ class AddLocationBottomSheet extends HookWidget {
                     ),
                     elevation: 0,
                   ),
-                  onPressed: () {},
+                      onPressed: () async {
+                    print("BUTTON PRESSED");
+
+                    if (nameController.text.trim().isEmpty ||
+                        addressController.text.trim().isEmpty ||
+                        hajjCodeController.text.trim().isEmpty ||
+                        hajjNationalityController.text.trim().isEmpty ||
+                        selectedLocation.value == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            "يرجى تعبئة جميع الحقول واختيار الموقع",
+                          ),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      return;
+                    }
+                    try {
+                      await context.read<LocationCubit>().addLocation(
+                        LocationEntity(
+                          name: nameController.text.trim(),
+                          nationalAddress: addressController.text.trim(),
+                          hajjCode: hajjCodeController.text.trim(),
+                          hajjNationality: hajjNationalityController.text
+                              .trim(),
+                          latitude: selectedLocation.value!.latitude,
+                          longitude: selectedLocation.value!.longitude,
+                          status: LocationStatus.active,
+                        ),
+                      );
+                      if (!context.mounted) return;
+                    } catch (e) {
+                      if (!context.mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("فشل حفظ الموقع"),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  },
                   child: Text(
                     "حفظ الموقع",
                     style: TextStyle(

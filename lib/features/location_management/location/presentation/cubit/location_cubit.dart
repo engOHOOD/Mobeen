@@ -6,17 +6,18 @@ import 'package:mobeen/features/location_management/location/presentation/cubit/
 class LocationCubit extends Cubit<LocationState> {
   final LocationUseCase _locationUseCase;
 
-  LocationCubit(this._locationUseCase) : super(LocationInitialState()){
- getLocations();
+  LocationCubit(this._locationUseCase) : super(LocationInitialState()) {
+    getLocations();
   }
 
-    Future<void> addLocation(LocationEntity location) async {
+  Future<void> addLocation(LocationEntity location) async {
     emit(LocationLoadingState());
-
+    
     final result = await _locationUseCase.addLocation(location);
     result.when(
-      (success) {
+      (success) async  {
         emit(AddLocationSuccessState());
+        await getLocations();
       },
       (whenError) {
         emit(LocationErrorState(message: whenError.message));

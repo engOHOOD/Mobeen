@@ -9,6 +9,7 @@ abstract class LocationState extends Equatable {
 }
 class LocationInitialState extends LocationState {}
 class LocationLoadingState extends LocationState {}
+
 class AddLocationSuccessState extends LocationState {}
 class GetLocationsSuccessState  extends LocationState {
   final List<LocationEntity> locations;

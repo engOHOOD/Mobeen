@@ -26,6 +26,7 @@ class LocationRepositoryData implements LocationRepositoryDomain {
           status: location.status,
         ),
       );
+      
       return Success(null);
     } catch (error) {
       return Error(FailureExceptions.getException(error));
