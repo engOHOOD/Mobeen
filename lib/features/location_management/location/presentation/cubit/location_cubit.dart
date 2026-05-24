@@ -12,7 +12,7 @@ class LocationCubit extends Cubit<LocationState> {
 
   Future<void> addLocation(LocationEntity location) async {
     emit(LocationLoadingState());
-    
+    print(location);
     final result = await _locationUseCase.addLocation(location);
     result.when(
       (success) async  {

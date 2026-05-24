@@ -235,11 +235,11 @@ class AddLocationBottomSheet extends HookWidget {
                       ),
                       Gap(8),
                       Text(
-                        "Lat: ${selectedLocation.value!.latitude}",
+                        "خط العرض: ${selectedLocation.value!.latitude}",
                         textAlign: TextAlign.right,
                       ),
                       Text(
-                        "Lng: ${selectedLocation.value!.longitude}",
+                        "خط الطول: ${selectedLocation.value!.longitude}",
                         textAlign: TextAlign.right,
                       ),
                     ],
@@ -256,9 +256,7 @@ class AddLocationBottomSheet extends HookWidget {
                     ),
                     elevation: 0,
                   ),
-                      onPressed: () async {
-                    print("BUTTON PRESSED");
-
+                  onPressed: () async {
                     if (nameController.text.trim().isEmpty ||
                         addressController.text.trim().isEmpty ||
                         hajjCodeController.text.trim().isEmpty ||
@@ -275,6 +273,13 @@ class AddLocationBottomSheet extends HookWidget {
                       return;
                     }
                     try {
+                      print(
+                        '-------------------------${selectedLocation.value!.latitude}',
+                      );
+                      print(
+                        '-------------------------${hajjNationalityController.text.trim()}',
+                      );
+
                       await context.read<LocationCubit>().addLocation(
                         LocationEntity(
                           name: nameController.text.trim(),

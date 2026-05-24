@@ -33,7 +33,7 @@ class LoadingRemoteDataSource implements BaseLoadingRemoteDataSource {
         final userData = await _supabase
             .from('users')
             .select()
-            .eq('id', _supabase.auth.currentUser!.id)
+            .eq('auth_id', _supabase.auth.currentUser!.id)
             .single();
         final userModel = UserModel.fromJson(userData);
         _userService.setUser = userModel;

@@ -42,7 +42,7 @@ class LocationFeatureScreen extends HookWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
-                  content: Text("تمت الإضافة بنجاح 🎉"),
+                  content: Text("تمت الإضافة بنجاح"),
                   backgroundColor: Colors.green,
                 ),
               );

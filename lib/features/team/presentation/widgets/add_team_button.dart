@@ -67,7 +67,7 @@ class AddTeamButton extends StatelessWidget {
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButtonFormField<String>(
-                        value: selectedId,
+                        initialValue: selectedId,
                         hint: const Text("اختر الباحث"),
                         items: availableResearchers
                             .map(

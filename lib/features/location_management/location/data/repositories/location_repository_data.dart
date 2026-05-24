@@ -21,6 +21,8 @@ class LocationRepositoryData implements LocationRepositoryDomain {
         LocationModel(
           name: location.name,
           nationalAddress: location.nationalAddress,
+          hajjCode: location.hajjCode,
+          hajjNationality: location.hajjNationality,
           latitude: location.latitude,
           longitude: location.longitude,
           status: location.status,

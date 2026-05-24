@@ -8,6 +8,7 @@ class TeamCubit extends Cubit<TeamState> {
 
   TeamCubit(this._teamUseCase) : super(TeamInitialState()) {
     getTeam();
+    getAvailableResearchers();
   }
 
   List<UserEntity> team = [];

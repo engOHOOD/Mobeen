@@ -22,7 +22,7 @@ class TeamRemoteDataSource implements BaseTeamRemoteDataSource {
   Future<List<UserModel>> getTeam() async {
     try {
       final supervisorId = _userService.getUser?.id;
- if (supervisorId == null) {
+      if (supervisorId == null) {
         throw Exception("No supervisor logged in");
       }
 
@@ -31,10 +31,7 @@ class TeamRemoteDataSource implements BaseTeamRemoteDataSource {
           .select()
           .eq('supervisor_id', supervisorId!);
 
-     return (response as List)
-          .map((e) => UserModel.fromJson(e))
-          .toList();
-          
+      return (response as List).map((e) => UserModel.fromJson(e)).toList();
     } catch (error) {
       throw FailureExceptions.getException(error);
     }
@@ -48,7 +45,7 @@ class TeamRemoteDataSource implements BaseTeamRemoteDataSource {
           .select()
           .eq('role', 'researcher')
           .isFilter('supervisor_id', null);
-
+      print('------$response');
       return (response as List).map((e) => UserModel.fromJson(e)).toList();
     } catch (error) {
       throw FailureExceptions.getException(error);

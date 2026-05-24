@@ -22,10 +22,12 @@ class ViewFormsRemoteDataSource implements BaseViewFormsRemoteDataSource {
   @override
   Future<List<FormModel>> getViewForms() async {
     try {
+      print('ijiji');
       final response = await _supabase
           .from("forms")
           .select()
           .eq('organisation_id', _userService.getUser!.organisationsId!);
+      print('-----');
 
       final forms = response.map((u) => FormModel.fromJson(u)).toList();
 

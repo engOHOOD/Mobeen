@@ -44,13 +44,14 @@ class LocationDetailsPage extends StatelessWidget {
               ),
               const Gap(20),
               Container(
+                width: double.infinity,
                 padding: const EdgeInsets.all(18),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: .start,
                   children: [
                     Text(
                       location.name ?? "",
@@ -69,8 +70,8 @@ class LocationDetailsPage extends StatelessWidget {
                       "جنسية الحج: ${location.hajjNationality ?? "غير محدد"}",
                     ),
                     const Gap(6),
-                    Text("Lat: ${location.latitude}"),
-                    Text("Lng: ${location.longitude}"),
+                    Text("خط العرض: ${location.latitude}"),
+                    Text("خط الطول: ${location.longitude}"),
                   ],
                 ),
               ),
